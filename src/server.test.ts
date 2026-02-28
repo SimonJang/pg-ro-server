@@ -76,10 +76,10 @@ describe("postgres-mcp server", () => {
       await srv.close();
     });
 
-    it("wraps query in a read-only transaction", async () => {
-      const queries: string[] = [];
+    it("wraps query in a read-only transaction using a prepared statement", async () => {
+      const queries: unknown[] = [];
       const pool = createMockPool((sql: unknown) => {
-        if (typeof sql === "string") queries.push(sql);
+        queries.push(sql);
         return { rows: [] };
       });
 
@@ -91,8 +91,16 @@ describe("postgres-mcp server", () => {
 
       await cli.callTool({ name: "query", arguments: { sql: "SELECT 1" } });
       expect(queries[0]).toBe("BEGIN TRANSACTION READ ONLY");
-      expect(queries[1]).toBe("SELECT 1");
+      expect(queries[1]).toEqual({
+        name: "sandboxed-statement",
+        text: "SELECT 1",
+        values: [],
+      });
       expect(queries[2]).toBe("ROLLBACK");
+
+      // Verify connection is destroyed (not returned to pool) for session isolation
+      const mockClient = await pool.connect();
+      expect(mockClient.release).toHaveBeenCalledWith(true);
 
       await cli.close();
       await srv.close();

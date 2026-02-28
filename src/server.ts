@@ -71,7 +71,11 @@ export function createServer(pool: pg.Pool, resourceBaseUrl: URL): McpServer {
     const client = await pool.connect();
     try {
       await client.query("BEGIN TRANSACTION READ ONLY");
-      const result = await client.query(sql);
+      const result = await client.query({
+        name: "sandboxed-statement",
+        text: sql,
+        values: [],
+      });
       return {
         content: [
           {
@@ -87,7 +91,7 @@ export function createServer(pool: pg.Pool, resourceBaseUrl: URL): McpServer {
       client
         .query("ROLLBACK")
         .catch((error: unknown) => console.warn("Could not roll back transaction:", error));
-      client.release();
+      client.release(true);
     }
   });
 
