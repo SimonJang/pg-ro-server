@@ -6,7 +6,7 @@ const SCHEMA_PATH = "schema";
 
 export function createServer(pool: pg.Pool): McpServer {
   const server = new McpServer({
-    name: "mcp-server-postgres",
+    name: "postgres-mcp-server",
     version: "0.1.0",
   });
 

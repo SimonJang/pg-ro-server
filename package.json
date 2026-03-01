@@ -1,11 +1,11 @@
 {
-  "name": "mcp-server-postgres",
+  "name": "@simonja/postgres-mcp-server",
   "version": "0.1.0",
   "description": "MCP server for interacting with PostgreSQL",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
-    "mcp-server-postgres": "dist/index.js"
+    "postgres-mcp-server": "dist/index.js"
   },
   "files": [
     "dist"

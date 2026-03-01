@@ -1,7 +1,7 @@
 /**
  * MCP client integration test.
  *
- * Connects to a running mcp-server-postgres instance via stdio,
+ * Connects to a running postgres-mcp-server instance via stdio,
  * exercises every tool (list-tables, describe-table, query),
  * and asserts expected results against the bookstore seed data.
  *

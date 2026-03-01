@@ -1,4 +1,4 @@
-# mcp-server-postgres
+# postgres-mcp-server
 
 A read-only [Model Context Protocol](https://modelcontextprotocol.io/) (MCP) server that exposes PostgreSQL databases. It allows LLM clients (like Claude Desktop or Claude Code) to explore your database schema and run read-only SQL queries.
 
@@ -15,14 +15,14 @@ This project is based on the original [`@modelcontextprotocol/server-postgres`](
 No manual install needed — use `npx` to run directly:
 
 ```bash
-npx mcp-server-postgres "postgresql://user:password@localhost:5432/mydb"
+npx @simonja/postgres-mcp-server "postgresql://user:password@localhost:5432/mydb"
 ```
 
 Or install globally:
 
 ```bash
-npm install -g mcp-server-postgres
-mcp-server-postgres "postgresql://user:password@localhost:5432/mydb"
+npm install -g @simonja/postgres-mcp-server
+postgres-mcp-server "postgresql://user:password@localhost:5432/mydb"
 ```
 
 The server communicates over stdio, so it's designed to be launched by an MCP client rather than run directly.
@@ -39,7 +39,7 @@ Add to your Claude Desktop config (`claude_desktop_config.json`):
     "postgres": {
       "command": "npx",
       "args": [
-        "mcp-server-postgres",
+        "@simonja/postgres-mcp-server",
         "postgresql://user:password@localhost:5432/mydb"
       ]
     }
@@ -50,7 +50,7 @@ Add to your Claude Desktop config (`claude_desktop_config.json`):
 ### Claude Code
 
 ```bash
-claude mcp add postgres -- npx mcp-server-postgres "postgresql://user:password@localhost:5432/mydb"
+claude mcp add postgres -- npx @simonja/postgres-mcp-server "postgresql://user:password@localhost:5432/mydb"
 ```
 
 ## Tools

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Full integration test for mcp-server-postgres.
+# Full integration test for postgres-mcp-server.
 #
 # Spins up a Docker PostgreSQL container with a bookstore database,
 # builds the MCP server, connects via the MCP SDK client, exercises
